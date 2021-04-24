@@ -1,10 +1,12 @@
 import styles from './home.module.scss';
 import { GetStaticProps}  from 'next';
+import Link  from 'next/link';
 import { api } from '../services/api';
 import {format, parseISO } from 'date-fns';
 import ptBR  from 'date-fns/locale/pt-BR';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 import Image from 'next/image';
+import Episode from './episodes/[id]';
 
 type Episode = {
   id: string;
@@ -40,7 +42,9 @@ export default function Home({all, latest}:HomeProps) {
                     src={e.thumbnail} 
                     alt={e.title}/>
                     <div className={styles.episodeDetails}>
-                      <a href="">{e.title}</a>
+                      <Link href={`/episodes/${e.id}`}>
+                        <a>{e.title}</a>
+                      </Link>
                       <p>{e.members}</p>
                       <span>{e.publishedAt}</span>
                       <span>{e.durationAsString}</span>
@@ -80,7 +84,9 @@ export default function Home({all, latest}:HomeProps) {
                         />
                       </td>
                       <td>
-                        <a href="">{e.title}</a>
+                        <Link href={`/episodes/${e.id}`}>
+                          <a>{e.title}</a>
+                        </Link>
                       </td>
 
                       <td>{e.members}</td>
