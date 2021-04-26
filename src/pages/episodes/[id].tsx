@@ -6,6 +6,7 @@ import { api } from '../../services/api';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 import  styles  from './episode.module.scss';
 import Link from 'next/link';
+import useRouter from 'next/router';
 type Episode = {
 
   id: string;
@@ -24,7 +25,8 @@ type EpisodeProps = {
 }
 
 export default function Episode({episode}:EpisodeProps){
-    return(
+
+       return(
         <div className={ styles.episode}>
             <div className={styles.thumbnailContainer}>
                 <Link href="/">

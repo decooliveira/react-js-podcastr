@@ -7,6 +7,8 @@ import ptBR  from 'date-fns/locale/pt-BR';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 import Image from 'next/image';
 import Episode from './episodes/[id]';
+import { useContext } from 'react';
+import { PlayerContext } from '../context/playerContext';
 
 type Episode = {
   id: string;
@@ -25,6 +27,8 @@ type HomeProps = {
 }
 
 export default function Home({all, latest}:HomeProps) {
+
+  const { play } = useContext(PlayerContext);
   return (
     <div className={styles.homepage}>
         <h1>Index</h1>
@@ -49,7 +53,7 @@ export default function Home({all, latest}:HomeProps) {
                       <span>{e.publishedAt}</span>
                       <span>{e.durationAsString}</span>
                     </div>
-                    <button type="button">
+                    <button type="button" onClick = {()=> play(e)}>
                       <img src="/play-green.svg" alt="tocar episódio"/>
                     </button>
                   </li>
@@ -93,8 +97,8 @@ export default function Home({all, latest}:HomeProps) {
                       <td style={{width:100}}>{e.publishedAt}</td>
                       <td>{e.durationAsString}</td>
                       <td>
-                        <button type="button">
-                          <img src="/play-green.svg" alt="Tentar"/>
+                        <button type="button" onClick = {()=> play(e)} >
+                          <img src="/play-green.svg" alt="Tocar episódio"/>
                         </button>
                       </td>
                     </tr>
