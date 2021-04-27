@@ -9,7 +9,7 @@ import 'rc-slider/assets/index.css';
 
 export function Player(){
 
-    const {episodeList, currentEpisodeIndex, isPlaying, tooglePlay, setPlayingState} = useContext(PlayerContext);
+    const {episodeList, currentEpisodeIndex, isPlaying, togglePlay, setPlayingState} = useContext(PlayerContext);
 
     const episode = episodeList[currentEpisodeIndex];
 
@@ -108,7 +108,7 @@ export function Player(){
                     <button type="button" 
                     disabled={!episode} 
                     className={styles.playButton}
-                    onClick={()=> tooglePlay()}>
+                    onClick={()=> togglePlay()}>
                         {
                             isPlaying?
                             (

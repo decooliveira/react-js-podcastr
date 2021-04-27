@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
     setIsPlaying(true);
   }
 
-  function tooglePlay(episode){
+  function togglePlay(){
     setIsPlaying(!isPlaying);
   }
 
@@ -32,8 +32,8 @@ function MyApp({ Component, pageProps }) {
         currentEpisodeIndex,
         isPlaying,
         play,
-        tooglePlay,
-        setPlayingState
+        setPlayingState,
+        togglePlay
       }}>
         <div className={styles.wrapper}>
         <main>
