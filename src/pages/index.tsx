@@ -1,5 +1,6 @@
 import styles from './home.module.scss';
 import { GetStaticProps}  from 'next';
+import Head from 'next/head';
 import Link  from 'next/link';
 import { api } from '../services/api';
 import {format, parseISO } from 'date-fns';
@@ -31,7 +32,11 @@ export default function Home({all, latest}:HomeProps) {
   const { play, playList } = useContext(PlayerContext);
   const episodeList = [...latest, ...all];
   return (
+    
     <div className={styles.homepage}>
+      <Head>
+        <title>Home | Podcastr</title>
+      </Head>
         <h1>Index</h1>
         <section className={styles.latestEpisodes}>
           <h2>Últimos episódios</h2>

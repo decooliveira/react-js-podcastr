@@ -23,6 +23,7 @@ export function Player(){
     setPlayingState,
     playNext,
     playPrevious,
+    clear
 
     } = usePlayer();
 
@@ -54,6 +55,14 @@ export function Player(){
     function handleSeek(amount:number){
         audioRef.current.currentTime = amount;
         setProgress(amount);
+    }
+
+    function handleEnded(){
+        if(hasNext){
+            playNext();
+        }else{
+            clear();
+        }
     }
 
     return (
@@ -125,6 +134,7 @@ export function Player(){
                         onLoadedMetadata = {setupProgressListener}
                         onPlay={()=> setPlayingState(true)}
                         onPause = {() => setPlayingState(false)}
+                        onEnded = {handleEnded}
                         >
 
                         </audio>
