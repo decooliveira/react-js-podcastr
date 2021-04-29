@@ -28,7 +28,7 @@ type EpisodeProps = {
 
 export default function Episode({episode}:EpisodeProps){
 
-    const {} = usePlayer();
+    const { play } = usePlayer();
        return(
         <div className={ styles.episode}>
             <div className={styles.thumbnailContainer}>
@@ -39,7 +39,7 @@ export default function Episode({episode}:EpisodeProps){
                 </Link>
                 <Image width={700} height={160} src={episode.thumbnail} objectFit="cover"/>
                 <button type="button">
-                    <img src="/play.svg" alt="Tocar episódio" />
+                    <img src="/play.svg" onClick= {() => play(episode)} alt="Tocar episódio" />
                 </button>
             </div>
             <header>

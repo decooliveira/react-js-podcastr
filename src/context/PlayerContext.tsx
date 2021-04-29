@@ -11,11 +11,15 @@ type PlayerContextData = {
     episodeList:Episode[];
     currentEpisodeIndex:number;
     isPlaying:boolean;
+    isLooping:boolean;
+    isShuffling:boolean;
     hasNext:boolean;
     hasPrevious:boolean;
     play: (episode:Episode) => void;
     playList:(list:Episode[], index:number)=> void;
     togglePlay:() => void;
+    toggleLoop:() => void;
+    toggleShuffle:() => void;
     playNext:() => void;
     playPrevious:() => void;
     setPlayingState:(state:boolean)=>void;
@@ -31,6 +35,8 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
   const[episodeList, setEpisodeList] = useState([]);
   const [currentEpisodeIndex,setCurrentEpisodeIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
 
 
  const hasPrevious = currentEpisodeIndex > 0;
@@ -47,6 +53,13 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
     setIsPlaying(!isPlaying);
   }
 
+  function toggleLoop(){
+    setIsLooping(!isLooping);
+  }
+
+  function toggleShuffle(){
+      setIsShuffling(!isShuffling);
+  }
   function playList(list: Episode[], index:number){
     setEpisodeList(list);
     setCurrentEpisodeIndex(index);
@@ -54,11 +67,13 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
   }
 
   function playNext(){
-      
-      if(hasNext){
+    
+    if(isShuffling){
+        const nextRandIndex = Math.floor(Math.random() * episodeList.length);
+        setCurrentEpisodeIndex(nextRandIndex);
+    }else if(hasNext){
         setCurrentEpisodeIndex(currentEpisodeIndex+1);
-      }
-      
+    }
   }
 
   function playPrevious(){
@@ -78,12 +93,16 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
         episodeList,
         currentEpisodeIndex,
         isPlaying,
+        isLooping,
+        isShuffling,
         hasNext,
         hasPrevious,
         play,
         playList,
         setPlayingState,
         togglePlay, 
+        toggleLoop,
+        toggleShuffle,
         playNext,
         playPrevious
       }}>
